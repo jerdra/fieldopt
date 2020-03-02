@@ -225,7 +225,7 @@ def define_coil_orientation(loc,rot,n):
     c = loc
 
     matsimnibs = np.zeros((4,4), dtype=np.float64)
-    matsimnibs[:3, 0] = x
+    matsimnibs[:3, 0] = -x
     matsimnibs[:3, 1] = y
     matsimnibs[:3, 2] = -z
     matsimnibs[:3, 3] = c
@@ -273,7 +273,7 @@ def compute_field_score(normE, proj_map, parcel):
     return np.dot(parcel_map,normE)
 
 
-#### VERTEX/TRIANGLES ON MESH ROUTINES 
+#### VERTEX/TRIANGLES ON MESH ROUTINES
 
 @numba.njit(parallel=True)
 def get_relevant_triangles(verts,triangles):
@@ -291,7 +291,7 @@ def get_relevant_triangles(verts,triangles):
     for t in numba.prange(0,triangles.shape[0]):
         for c in np.arange(0,3):
             for v in verts:
-                
+
                 if triangles[t][c] == v:
                     t_arr[t] = 1
                     break
@@ -347,7 +347,7 @@ def get_vert_norms(trigs,coords):
     '''
     Compute vertex normals using cumulative normalization trick
     Arguments:
-        trigs                               Array of triangles with normalized values 
+        trigs                               Array of triangles with normalized values
                                             range(1,size(unique(trigs)))
         coords                              Array of coordinates (vals in trigs correspond to inds in coords)
     Output:
